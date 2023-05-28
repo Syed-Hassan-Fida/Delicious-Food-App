@@ -1,0 +1,7 @@
+hassansfida
+ez0SWw7mQUX88IZj
+39.45.215.57/32
+My IP Address Delicious
+delicious
+
+npm install express nodemon mongoose react-bootstrap bootstrap
