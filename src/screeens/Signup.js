@@ -8,26 +8,40 @@ function Signup() {
         password: '',
         location: ''
     });
+    const [message,setMessage] = useState('');
+    const [error, setError] = useState([]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("event", event)
-    // fetch('/api/users', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(formData)
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   console.log('Response:', data);
-    //   // Do something with the response
-    // })
-    // .catch(error => {
-    //   console.error('Error:', error);
-    //   // Handle the error
-    // });
+    fetch('http://localhost:5000/api/create-user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Response:', data.errors);
+        if(data.success === true){
+            // success message
+            setMessage('Form submitted successfully.');
+            // empty form inputs
+            setFormData({
+              name: '',
+              email: '',
+              password: '',
+              location: ''
+            });
+        } else {
+            setError(data.errors)
+        }
+
+      // Do something with the response
+    })
+    .catch(error => {
+      console.log('Error:', error.errors);
+    });
   };
 
   const handleChange = (event) => {
@@ -48,6 +62,7 @@ function Signup() {
               >
                 <div className="card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Sign-Up Form</h3>
+                  {message && <p className="btn btn-success">{message}</p>}
                   <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="col-md-6 mb-4 pb-2">
@@ -81,6 +96,15 @@ function Signup() {
                           <label className="form-label" for="emailAddress">
                             Email
                           </label>
+                          {error.length > 0 && (
+                            <div>
+                                {error.map((error, index) => (
+                                    (error.path === "email") ? 
+                                        <p className="btn btn-success">{error.msg}</p> : ""
+                                    
+                                ))}
+                            </div>
+                          )}
                         </div>
                       </div>
 
@@ -97,6 +121,15 @@ function Signup() {
                           <label className="form-label" for="password">
                             Password
                           </label>
+                          {error.length > 0 && (
+                            <div>
+                                {error.map((error, index) => (
+                                    (error.path === "password") ? 
+                                        <p className="btn btn-success">{error.msg}</p> : ""
+                                    
+                                ))}
+                            </div>
+                          )}
                         </div>
                       </div>
 

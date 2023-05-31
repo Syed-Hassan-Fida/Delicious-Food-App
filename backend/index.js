@@ -1,7 +1,9 @@
 const express = require('express')
 const mongoDB = require("./db")
+const cors = require('cors')
 const bodyParser = require('body-parser');
 const app = express()
+app.use(cors());
 const port = 5000
 
 const Product = require("./models/schema")
