@@ -3,5 +3,9 @@ ez0SWw7mQUX88IZj
 39.45.215.57/32
 My IP Address Delicious
 delicious
-
+39.45.139.210 ip address
 npm install express nodemon mongoose react-bootstrap bootstrap
+
+pkg
+npm install --save express-validator
+npm install body-parser
