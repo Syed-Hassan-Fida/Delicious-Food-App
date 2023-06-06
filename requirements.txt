@@ -9,3 +9,4 @@ npm install express nodemon mongoose react-bootstrap bootstrap
 pkg
 npm install --save express-validator
 npm install body-parser
+npm install bcrypt
