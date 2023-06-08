@@ -17,7 +17,7 @@ function Home() {
       }
     })
       .then(response => {
-        console.log("auth data",response.data.userData.name)
+        // console.log("auth data",response.data.userData.name)
         userData.current = response.data.userData.name
       })
       .catch(error => {

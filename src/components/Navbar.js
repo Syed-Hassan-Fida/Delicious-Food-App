@@ -1,9 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function Navbar(props) {
     const {authData} = props 
+    const navigate = useNavigate()
     console.log("test", props.authData)
+    const handleLogout = () => {
+        localStorage.removeItem('authToken')
+        navigate('/login')
+    }
   return (
     <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -19,14 +25,25 @@ function Navbar(props) {
                     </li>
                     {!authData && (
                         <div>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/login">login</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/signup">Signup</Link>
-                            </li>
+                          <li className="nav-item">
+                            <Link className="nav-link" to="/login">
+                              Login
+                            </Link>
+                          </li>
+                          <li className="nav-item">
+                            <Link className="nav-link" to="/signup">
+                              Signup
+                            </Link>
+                          </li>
                         </div>
-                    )}
+                      )}
+                      {authData && (
+                        <li className="nav-item">
+                          <button className="nav-link btn" onClick={handleLogout}>
+                            Logout
+                          </button>
+                        </li>
+                      )}
                 </ul>
                 </div>
             </div>
