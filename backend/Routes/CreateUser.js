@@ -3,7 +3,8 @@ const User = require("../models/user")
 const router = express.Router()
 const { body, validationResult } = require('express-validator');
 const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const fetchUser = require('../middleware/getUserData');
 const secrectKey = "qwertyuioasdfgjklxcvbnmwertyuiogfghgadafadfsf"
 // create user route 
 router.post("/create-user",[
@@ -75,6 +76,16 @@ router.post("/login", [
         return res.json({success:false, errors:error})
     }
 
+})
+
+router.get("/getUserData", fetchUser, async (req, res) => {
+    try{
+        const id = req.user.id
+        const userData = await User.findById(id).select('-password')
+        res.status(200).json({"userData": userData})
+    }catch(error){
+        res.status(400).json({"error": "Server Error"})
+    }
 })
 
 module.exports = router

@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function Navbar() {
+function Navbar(props) {
+    const {authData} = props 
+    console.log("test", props.authData)
   return (
     <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -15,12 +17,16 @@ function Navbar() {
                     <li className="nav-item">
                         <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                     </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/login">login</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/signup">Signup</Link>
-                    </li>
+                    {!authData && (
+                        <div>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/login">login</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/signup">Signup</Link>
+                            </li>
+                        </div>
+                    )}
                 </ul>
                 </div>
             </div>

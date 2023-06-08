@@ -10,3 +10,8 @@ pkg
 npm install --save express-validator
 npm install body-parser
 npm install bcrypt
+npm install jsonwebtoken
+npm install axios
+npm install crypto-browserify
+npm install util
+npm install buffer

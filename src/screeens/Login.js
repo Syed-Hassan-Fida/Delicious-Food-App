@@ -1,6 +1,7 @@
 import { useState } from "react"
 import React from 'react'
 import { Link, useNavigate } from "react-router-dom"
+import axios from "axios"
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -13,30 +14,52 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     try{
-      fetch("http://localhost:5000/api/login", {
-        method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formData)
+      axios.post('http://localhost:5000/api/login', formData)
+      .then(response => {
+        if(response.data.success === true){
+              // navigate to home page
+              localStorage.setItem("authToken", response.data.token)
+              navigate("/")
+              
+              // empty form inputs
+              setFormData({
+              email: '',
+              password: ''
+              });
+          } else {
+              setError(response.data.errors)
+              console.log("data", error)
+          }
+        console.log(response.data);
       })
-      .then(response => response.json())
-        .then(data => {
-            if(data.success === true){
-                // navigate to home page
-                localStorage.setItem("authToken", data.token)
-                // navigate("/")
+      .catch(error => {
+        // Handle the error
+        console.error(error);
+      });
+      // fetch("http://localhost:5000/api/login", {
+      //   method: 'POST',
+      //     headers: {
+      //         'Content-Type': 'application/json'
+      //     },
+      //     body: JSON.stringify(formData)
+      // })
+      // .then(response => response.json())
+      //   .then(data => {
+      //       if(data.success === true){
+      //           // navigate to home page
+      //           localStorage.setItem("authToken", data.token)
+      //           navigate("/")
                 
-                // empty form inputs
-                setFormData({
-                email: '',
-                password: ''
-                });
-            } else {
-                setError(data.errors)
-                console.log("data", error)
-            }
-          })
+      //           // empty form inputs
+      //           setFormData({
+      //           email: '',
+      //           password: ''
+      //           });
+      //       } else {
+      //           setError(data.errors)
+      //           console.log("data", error)
+      //       }
+      //     })
 
     } catch (error){
       console.log("data", formData)
