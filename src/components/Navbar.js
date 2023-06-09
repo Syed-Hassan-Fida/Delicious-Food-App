@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import { useUserData } from '../providers/AuthProvider'
 
-function Navbar(props) {
-    const {authData} = props 
+function Navbar() {
+    const userData = useUserData();
     const navigate = useNavigate()
-    console.log("test", props.authData)
+    console.log("{authData}", userData)
     const handleLogout = () => {
         localStorage.removeItem('authToken')
         navigate('/login')
@@ -23,7 +24,7 @@ function Navbar(props) {
                     <li className="nav-item">
                         <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                     </li>
-                    {!authData && (
+                    {!userData && (
                         <div>
                           <li className="nav-item">
                             <Link className="nav-link" to="/login">
@@ -37,7 +38,7 @@ function Navbar(props) {
                           </li>
                         </div>
                       )}
-                      {authData && (
+                      {userData && (
                         <li className="nav-item">
                           <button className="nav-link btn" onClick={handleLogout}>
                             Logout
