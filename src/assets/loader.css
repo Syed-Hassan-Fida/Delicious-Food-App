@@ -1,5 +1,5 @@
 
-:root {
+.parent {
 	--hue: 223;
 	--bg: hsl(var(--hue),90%,95%);
 	--fg: hsl(var(--hue),90%,5%);

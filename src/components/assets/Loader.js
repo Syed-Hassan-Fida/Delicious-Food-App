@@ -3,7 +3,7 @@ import "../../assets/loader.css";
 
 function Loader() {
   return (
-    <div className="body">
+    <div className="body parent">
       <main>
         <svg
           className="ip"
